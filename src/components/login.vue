@@ -1,0 +1,22 @@
+<template>
+
+    <section class="bg-black h-screen flex items-center justify-center background-shadow">
+
+        <div class="text-center m-6 text-white space-y-8 w-screen max-w-md">
+            <h1 class="text-5xl tracking-wider font-semibold">ROCK<span class="font-light italic">fit</span></h1>
+            <p class="text-gray-200 tracking-wide">Track your training | Learn from others</p>
+            <div>
+                <form class="flex flex-col text-lg">
+                    <input class="w-full rounded-lg bg-black green-border px-2 py-1 focus:outline-none" placeholder="username" type="text">
+                    <input class="w-full rounded-lg bg-black green-border px-2 py-1 focus:outline-none mt-3" placeholder="password" type="password">
+                    <button class="btn mt-8 transition rounded-lg text-black p-2 font-semibold" type="button">Login</button>
+                </form>
+            </div>
+            <div>Not a Member? <a href="/signup" class="font-bold green">Sign Up!</a></div>
+        </div>
+
+    </section>
+
+</template>
+
+

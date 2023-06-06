@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn {
+    background-color: #4AB859;
+}
+
+.btn:hover {
+    background-color: #7AC471;
+}
+
+.light-green {
+    color: #7AC471;
+}
+
+.light-green-bg {
+    background-color: #7AC471;
+}
+
+.green {
+    color: #4AB859;
+}
+
+.green-border {
+    border: 1px solid #4AB859;
+}
+
+.green-bg {
+    background-color: #4AB859;
+}
+
+.dark-green {
+    color: #23A349;
+}
+
+.dark-green-bg {
+    background-color: #23A349;
+}
+
+.background-shadow {
+    background: radial-gradient(#404040, #000000);
+}
+
