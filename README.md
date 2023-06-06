@@ -1,6 +1,6 @@
 # rock-fit-app
 
-This template should help get you started developing with Vue 3 in Vite.
+The App for Climbers to train and learn from others.
 
 ## Recommended IDE Setup
 
