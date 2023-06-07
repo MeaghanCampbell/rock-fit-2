@@ -1,27 +1,29 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import LoginView from '../views/LoginView.vue'
-import SignUpView from '../views/SignUpView.vue'
-
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: HomeView
+        path: '/',
+        name: 'Home', component: ()=>import('../views/HomeView.vue'),
+        meta: {
+            title: 'Rockfit'
+        }
     },
     {
-      path: '/login',
-      name: 'login',
-      component: LoginView
+        path: '/login',
+        name: 'Login', component: ()=>import('../views/LoginView.vue'),
+        meta: {
+            title: 'Rockfit - Login'
+        }
     },
     {
-      path: '/signup',
-      name: 'signup',
-      component: SignUpView
-    }
+        path: '/signup',
+        name: 'Signup', component: ()=>import('../views/SignUpView.vue'),
+        meta: {
+            title: 'Rockfit - Signup'
+        }
+    },
   ]
 })
 
