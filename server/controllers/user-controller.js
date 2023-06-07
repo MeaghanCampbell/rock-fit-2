@@ -1,9 +1,11 @@
-const asyncHandler = require('express-async-handler')
+const asyncHandler = require('express-async-handler');
+const User = require('../models/userModel')
 
 // get all users
 // GET /api/users
 const getUsers = asyncHandler(async (req, res) => {
-    res.status(200).json({message: 'get all users'})
+    const users = await User.find()
+    res.status(200).json(users)
 })
 
 // get individual users
@@ -16,12 +18,17 @@ const getUser = asyncHandler(async (req, res) => {
 // POST /api/users
 const createUser = asyncHandler(async (req, res) => {
     console.log(req.body)
-    const {username, email} = req.body
-    if(!username || !email) {
+    const {username, email, password} = req.body
+    if(!username || !email || !password) {
         res.status(400)
         throw new Error('All fields are mandatory')
     }
-    res.status(201).json({message: 'create user'})
+    const user = await User.create({
+        username,
+        email,
+        password
+    })
+    res.status(201).json(user)
 })
 
 // update a user
