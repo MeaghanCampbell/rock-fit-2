@@ -11,6 +11,8 @@ const port = process.env.PORT || 5000;
 // middleware
 app.use(express.json())
 app.use("/api/users", require("./server/routes/user-routes"))
+app.use("/api/workouts", require("./server/routes/workout-routes"))
+app.use("/api/benchmarks", require("./server/routes/benchmark-routes"))
 app.use(errorHandler)
 
 app.listen(port, () => {

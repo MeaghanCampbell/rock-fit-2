@@ -1,17 +1,16 @@
 const express = require('express')
 const router = express.Router()
+const validateToken = require("../middleware/validateTokenHandler")
 const { 
-    getUsers,
-    createUser,
-    getUser,
-    updateUser,
-    deleteUser,
+    registerUser,
+    loginUser,
+    currentUser,
+    getUsers
 } = require('../controllers/user-controller')
 
-// get all users & create a user
-router.route('/').get(getUsers).post(createUser)
-
-// get, update & delete am individual user
-router.route('/:id').get(getUser).put(updateUser).delete(deleteUser)
+router.get('/', getUsers)
+router.post('/register', registerUser)
+router.post('/login', loginUser)
+router.get('/current', validateToken, currentUser)
 
 module.exports = router
