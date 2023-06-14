@@ -10,5 +10,15 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  server: {
+    port: 5000 // Change to a different port number
+  },
+  proxy: {
+    '/api': {
+      target: 'http://localhost:3000', // Replace with your back-end server's URL
+      changeOrigin: true,
+      rewrite: (path) => path.replace(/^\/api/, '')
+    }
   }
 })

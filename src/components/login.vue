@@ -1,3 +1,26 @@
+<script setup>
+
+import { ref } from 'vue'
+import axios from 'axios';
+
+const username = ref('')
+const password = ref('')
+
+const handleLogin = () => {
+    axios.post('/api/users/login', {
+        username: username._rawValue,
+        password: password._rawValue
+    })
+    .then(response => {
+        console.log(response)
+    })
+    .catch(error => {
+        console.log(error)
+    })
+}
+
+</script>
+
 <template>
 
     <section class="bg-black h-screen flex items-center justify-center background-shadow">
@@ -7,9 +30,9 @@
             <p class="text-gray-200 tracking-wide">Track your training | Learn from others</p>
             <div>
                 <form class="flex flex-col text-lg">
-                    <input class="w-full rounded-lg bg-black green-border px-2 py-1 focus:outline-none" placeholder="username" type="text">
-                    <input class="w-full rounded-lg bg-black green-border px-2 py-1 focus:outline-none mt-3" placeholder="password" type="password">
-                    <button class="btn mt-8 transition rounded-lg text-black p-2 font-semibold" type="button">Login</button>
+                    <input v-model="username" class="w-full rounded-lg bg-black green-border px-2 py-1 focus:outline-none" placeholder="username" type="text">
+                    <input v-model="password" class="w-full rounded-lg bg-black green-border px-2 py-1 focus:outline-none mt-3" placeholder="password" type="password">
+                    <button @click.prevent="handleLogin()" class="btn mt-8 transition rounded-lg text-black p-2 font-semibold" type="button">Login</button>
                 </form>
             </div>
             <div>Not a Member? <a href="/signup" class="font-bold green">Sign Up!</a></div>
