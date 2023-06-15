@@ -1,4 +1,5 @@
 const express = require("express")
+const cors = require('cors')
 const connectDb = require('./server/config/dbConnection')
 const errorHandler = require('./server/middleware/errorHandler')
 const dotenv = require("dotenv").config()
@@ -9,6 +10,7 @@ const app = express()
 const port = process.env.PORT || 5000;
 
 // middleware
+app.use(cors())
 app.use(express.json())
 app.use("/api/users", require("./server/routes/user-routes"))
 app.use("/api/workouts", require("./server/routes/workout-routes"))

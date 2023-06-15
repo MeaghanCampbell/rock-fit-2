@@ -12,11 +12,11 @@ export default defineConfig({
     }
   },
   server: {
-    port: 5000 // Change to a different port number
+    port: 3000
   },
   proxy: {
     '/api': {
-      target: 'http://localhost:3000', // Replace with your back-end server's URL
+      target: 'http://localhost:5001',
       changeOrigin: true,
       rewrite: (path) => path.replace(/^\/api/, '')
     }
