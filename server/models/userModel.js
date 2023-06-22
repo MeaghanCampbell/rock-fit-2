@@ -15,7 +15,14 @@ const userSchema = new Schema({
         type: String,
         required: [true, "Password is required"]
     },
-    workouts: [{ type: Schema.Types.ObjectId, ref: 'Workout' }],
+    workouts: [{ 
+        type: Schema.Types.ObjectId, 
+        ref: 'Workout' 
+    }],
+    benchmark: {
+        type: Schema.Types.ObjectId, 
+        ref: 'Benchmark'
+    }
 },
 {
     timestamps: true,

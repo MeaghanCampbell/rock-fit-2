@@ -44,7 +44,8 @@ const createWorkout = asyncHandler(async (req, res) => {
         time,
         level,
         description,
-        user_id: req.user.id
+        user_id: req.user.id,
+        user_name: req.user.username
     })
 
     res.status(201).json(workout)

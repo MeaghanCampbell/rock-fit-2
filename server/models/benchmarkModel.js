@@ -1,13 +1,17 @@
 const mongoose = require("mongoose")
+const Schema = mongoose.Schema
 
-const benchmarkSchema = mongoose.Schema({
+const benchmarkSchema = new Schema({
     boulder_grade: {
-        type: String,
-        required: [true, "Boulder Grade is Required"]
+        type: String
     },
     route_grade: {
-        type: String,
-        required: [true, "Route Grade is Required"]
+        type: String
+    },
+    user_id: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
     }
 },
 {

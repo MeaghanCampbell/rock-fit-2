@@ -53,3 +53,6 @@
 .workout-preview:hover {
     background-color: #4AB859;
 }
+
+/* cloak */ 
+[v-cloak] { display: none; }
