@@ -31,6 +31,8 @@ const getWorkout = asyncHandler(async (req, res) => {
 // private
 const createWorkout = asyncHandler(async (req, res) => {
 
+    console.log(req.body)
+
     const {date, category, time, level, description} = req.body
 
     if(!date || !category || !time || !level || !description) {

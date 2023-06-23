@@ -2,6 +2,8 @@ const asyncHandler = require('express-async-handler');
 const bcrypt = require("bcrypt")
 const jwt = require('jsonwebtoken')
 const User = require('../models/userModel')
+const Workout = require('../models/workoutModel')
+
 
 // register the user
 // POST /api/users/register
@@ -76,8 +78,14 @@ const loginUser = asyncHandler(async (req, res) => {
 // GET /api/users/current
 // private
 const currentUser = asyncHandler(async (req, res) => {
-    res.json(req.user)
-})
+
+    const currentUser = req.user
+
+    const workouts = await Workout.find({ user_id: currentUser.id})
+
+    res.json({currentUser, workouts})
+
+});
 
 // get all users
 // GET /api/users

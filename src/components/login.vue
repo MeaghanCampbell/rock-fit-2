@@ -15,6 +15,8 @@ const handleLogin = () => {
     })
     .then(response => {
         if (response.status === 200) {
+            const token = response.data.accessToken;
+            localStorage.setItem('token', token);
             document.location.replace('/')
         } else {
             formError.classList.remove('hidden')
