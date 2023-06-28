@@ -1,5 +1,6 @@
 <script setup>
 
+    import { onMounted } from 'vue'
     import home from '@/components/user-pages/home.vue'
     import search from '@/components/user-pages/search.vue'
     import saved from '@/components/user-pages/saved.vue'
@@ -49,11 +50,19 @@
             }
         }
 
+
+    onMounted(() => {
+        const token = localStorage.getItem('token');
+        if(!token) {
+            window.location.replace('/login')
+        }
+    })
+
 </script>
 
 <template>
 
-    <main class="bg-black min-h-screen max-h-screen overflow-scroll background-shadow">
+    <main class="bg-black min-h-screen max-h-screen overflow-scroll background-shadow pb-28">
 
         <!-- Bottom Nav -->
         <section class="nav-gradient fixed bottom-0 w-full">

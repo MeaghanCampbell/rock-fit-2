@@ -20,6 +20,7 @@
         time.value = workout.time
         level.value = workout.level
         description.value = workout.description
+        username.value = workout.user_name
         showModal.value = !showModal.value
     }
 
@@ -50,7 +51,7 @@
         <div class="fixed inset-0 z-10 overflow-y-auto">
             <div @click="showModal = false" class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
                 <openWorkout
-                    :username="username"
+                    :user_name="username"
                     :date="date"
                     :category="category"
                     :time="time"

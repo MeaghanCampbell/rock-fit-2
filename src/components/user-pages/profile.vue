@@ -84,8 +84,8 @@
         }
         axios.post('http://localhost:5001/api/workouts', requestBody, config)
         .then(response => {
-            console.log(response)
             showAddModal.value = false
+            window.location.reload()
         })
         .catch(error => {
             console.log(error);
@@ -100,8 +100,8 @@
             }
         })
         .then(response => {
-            console.log(response)
             showModal.value = false
+            window.location.reload()
         })
         .catch(error => {
             console.log(error);
