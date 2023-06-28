@@ -2,24 +2,40 @@
 
     import { ref, onMounted } from 'vue';
     import axios from 'axios';
-    import openUserWorkout from '../open-workout-profile.vue'
     import addBenchmark from '../add-benchmark.vue'
     import workoutPreview from "@/components/workout-preview.vue"
 
     let userWorkoutObj = ref({});
-    let showOpenModal = ref(false)
+    let showModal = ref(false)
     let showAddModal = ref(false)
     let showBenchmark = ref(false)
-    const date = ref('')
-    const category = ref('')
-    const time = ref('')
-    const level = ref('')
-    const description = ref('')
+    let username = ref('')
+    let date = ref('')
+    let category = ref('')
+    let time = ref('')
+    let level = ref('')
+    let description = ref('')
+    let workoutId = ''
 
 
 
-    function toggleOpenModal() {
-        showOpenModal.value = !showOpenModal.value
+    function openModal(workout) {
+        workoutId = workout._id
+        date.value = workout.date
+        category.value = workout.category
+        time.value = workout.time
+        level.value = workout.level
+        description.value = workout.description
+        showModal.value = true
+    }
+
+    function closeModal() {
+        date.value = ''
+        category.value = ''
+        time.value = ''
+        level.value = ''
+        description.value = ''
+        showModal.value = false
     }
 
     function toggleAddModal() {
@@ -38,6 +54,7 @@
             }
         })
         .then(response => {
+            username.value = response.data.currentUser.username
             const userWorkoutArray = response.data.workouts;
             const newObj = {};
             for (let i = 0; i < userWorkoutArray.length; i++) {
@@ -68,27 +85,63 @@
         axios.post('http://localhost:5001/api/workouts', requestBody, config)
         .then(response => {
             console.log(response)
+            showAddModal.value = false
         })
         .catch(error => {
             console.log(error);
         });
     }
 
-    // function deleteWorkout() {
-    //     const token = localStorage.getItem('token');
-
-    // }
+    const deleteWorkout = function() {
+        const token = localStorage.getItem('token');
+        axios.delete(`http://localhost:5001/api/workouts/${workoutId}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        .then(response => {
+            console.log(response)
+            showModal.value = false
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    }
 
 </script>
 
 <template>
 
     <!-- Open Workout Modal -->
-    <div v-cloak v-if="showOpenModal" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div v-cloak v-if="showModal" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
     <div class="fixed inset-0 bg-gray-800 bg-opacity-75 transition-opacity"></div>
         <div class="fixed inset-0 z-10 overflow-y-auto">
-            <div @click="toggleOpenModal" class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                <openUserWorkout />
+            <div @click="closeModal" class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div @click.stop="" class="bg-black w-full border border-white rounded-lg relative transform overflow-hidden text-left shadow-xl transition-all sm:w-full sm:max-w-sm">
+                    <div class="px-4 py-2 bg-white rounded-t-md">
+                        <div class="flex justify-between text-black">
+                            <p class="font-semibold">{{ username }}</p>
+                            <p class="italic">{{ date }}</p>
+                        </div>
+                    </div>
+                    <div class="px-4 py-6 rounded-b-lg text-white">
+                        <div class="text-center space-y-5">
+                            <p>
+                                <span class="font-bold">Category: </span>
+                                <span>{{ category }}</span>
+                            </p>
+                            <p><span class="font-bold">Time: </span><span>{{ time }}</span></p>
+                            <p><span class="font-bold">Difficulty: </span><span>{{ level }}</span></p>
+                            <p class="flex flex-col items-center">
+                                <span class="font-bold">Description</span>
+                                <span>{{ description }}</span>
+                            </p>
+                        </div>
+                    </div>
+                    <button @click="deleteWorkout" class="bg-red-500 w-full rounded-b-lg font-semibold tracking-wide py-2 transition">
+                        Delete Workout
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -159,9 +212,10 @@
             <button v-if="Object.keys(userWorkoutObj).length === 0" class="w-full border border-white rounded-lg" disabled>Loading...</button>
 
             <!--components-->
-            <button v-else @click="toggleOpenModal" class="w-full border border-white rounded-lg mt-4" v-for="(workout, index) in userWorkoutObj" :key="index">
+            <button v-else @click="openModal(workout)" class="w-full border border-white rounded-lg mt-4" v-for="(workout, index) in userWorkoutObj" :key="index">
                 <workoutPreview 
-                    :user_name="workout.user_name"
+                    :id="workout._id"
+                    :user_name="username"
                     :date="workout.date"
                     :category="workout.category"
                     :time="workout.time"

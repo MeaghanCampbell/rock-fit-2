@@ -1,6 +1,6 @@
 <script setup>
 
-    const props = defineProps(['user_name', 'date', 'category', 'time', 'level'])
+    const props = defineProps(['user_name', 'date', 'category', 'time', 'level', 'id'])
 
 </script>
 
