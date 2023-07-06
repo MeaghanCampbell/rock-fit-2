@@ -53,8 +53,21 @@
 
     onMounted(() => {
         const token = localStorage.getItem('token');
-        if(!token) {
-            window.location.replace('/login')
+
+        if (!token) {
+            window.location.replace('/login');
+        } else {
+            const tokenParts = token.split('.');
+            if (tokenParts.length === 3) {
+                const payload = JSON.parse(atob(tokenParts[1]));
+                const currentTime = Math.floor(Date.now() / 1000);
+
+                if (payload.exp < currentTime) {
+                    // Token has expired, handle the expiration accordingly (e.g., display a message and redirect to the login page)
+                    localStorage.removeItem('token');
+                    window.location.replace('/login');
+                }
+            }
         }
     })
 
@@ -67,8 +80,7 @@
         <!-- Bottom Nav -->
         <section class="nav-gradient fixed bottom-0 w-full">
             <div class="text-white flex justify-center max-w-md mx-auto">
-                <a v-for="tab in tabs" :id="tab.id" :key="tab.name" :href="tab.href" @click.prevent="tabSelect(tab)" v-html="tab.svg" :class="[tab.active ? 'shadow-inner light-green-bg' : '', 'py-6 px-8']"></a>
-            </div>
+                <a v-for="tab in tabs" :id="tab.id" :key="tab.name" :href="tab.href" @click.prevent="tabSelect(tab)" v-html="tab.svg" :class="[tab.active ? 'shadow-inner light-green-bg' : '', 'py-6 px-8']"></a>            </div>
         </section>
 
         <!-- Home Dashboard -->
