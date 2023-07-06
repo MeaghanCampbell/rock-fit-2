@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt")
 const jwt = require('jsonwebtoken')
 const User = require('../models/userModel')
 const Workout = require('../models/workoutModel')
+const Benchmark = require('../models/benchmarkModel')
 
 
 // register the user
@@ -83,7 +84,9 @@ const currentUser = asyncHandler(async (req, res) => {
 
     const workouts = await Workout.find({ user_id: currentUser.id})
 
-    res.json({currentUser, workouts})
+    const benchmark = await Benchmark.find({ user_id: currentUser.id})
+
+    res.json({currentUser, workouts, benchmark})
 
 });
 

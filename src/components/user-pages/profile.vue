@@ -2,13 +2,20 @@
 
     import { ref, onMounted } from 'vue';
     import axios from 'axios';
-    import addBenchmark from '../add-benchmark.vue'
     import workoutPreview from "@/components/workout-preview.vue"
 
     let userWorkoutObj = ref({});
+
+    let benchmark = ref(false)
+    let boulder_grade = ref('')
+    let route_grade = ref('')
+    let benchmarkId = ''
+
     let showModal = ref(false)
     let showAddModal = ref(false)
-    let showBenchmark = ref(false)
+    let showBenchmarkModal = ref(false)
+
+    let workouts = ref(false)
     let username = ref('')
     let date = ref('')
     let category = ref('')
@@ -43,7 +50,7 @@
     }
 
     function toggleBenchmark() {
-        showBenchmark.value = !showBenchmark.value
+        showBenchmarkModal.value = !showBenchmarkModal.value
     }
 
     onMounted(() => {
@@ -54,14 +61,23 @@
             }
         })
         .then(response => {
-            username.value = response.data.currentUser.username
-            const userWorkoutArray = response.data.workouts;
-            const newObj = {};
-            for (let i = 0; i < userWorkoutArray.length; i++) {
-                const userWorkoutObject = userWorkoutArray[i];
-                newObj['userWorkoutObject' + i] = userWorkoutObject;
+            if (response.data.benchmark[0]) {
+                benchmark.value = true 
+                route_grade.value = response.data.benchmark[0].route_grade
+                boulder_grade.value = response.data.benchmark[0].boulder_grade
+                benchmarkId = response.data.benchmark[0]._id
             }
-            userWorkoutObj.value = newObj;
+            if (response.data.workouts[0]) {
+                workouts.value = true
+                username.value = response.data.currentUser.username
+                const userWorkoutArray = response.data.workouts;
+                const newObj = {};
+                for (let i = 0; i < userWorkoutArray.length; i++) {
+                    const userWorkoutObject = userWorkoutArray[i];
+                    newObj['userWorkoutObject' + i] = userWorkoutObject;
+                }
+                userWorkoutObj.value = newObj;
+            }
         })
         .catch(error => {
             console.log(error);
@@ -108,6 +124,49 @@
         });
     }
 
+    function addBenchmark() {
+        const token = localStorage.getItem('token');
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+        const requestBody = {
+            boulder_grade: boulder_grade.value,
+            route_grade: route_grade.value
+        }
+        axios.post('http://localhost:5001/api/benchmarks', requestBody, config)
+        .then(response => {
+            showBenchmarkModal.value = false
+            window.location.reload()
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    }
+
+    function updateBenchmark() {
+
+        const token = localStorage.getItem('token');
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+        const requestBody = {
+            boulder_grade: boulder_grade.value,
+            route_grade: route_grade.value
+        }
+        axios.put(`http://localhost:5001/api/benchmarks/${benchmarkId}`, requestBody, config) 
+        .then(response => {
+            showBenchmarkModal.value = false
+        })
+        .catch(error => {
+            console.log(error)
+        });
+
+    }
+        
     const logOut = function() {
         localStorage.removeItem('token');
         window.location.replace('/login');
@@ -168,7 +227,7 @@
                                 <input class="w-full rounded-md px-2 py-1" type="text" v-model="category"/>
                             </div>
                             <div class="flex flex-col items-center text-black">
-                                <label for="location" class="block font-bold text-white leading-6">Time</label>
+                                <label for="location" class="block font-bold text-white leading-6">Time (in minutes)</label>
                                 <input class="w-full rounded-md px-2 py-1" type="text" v-model="time"/>
                             </div>
                             <div class="flex flex-col items-center text-black">
@@ -190,11 +249,71 @@
     </div>
 
     <!-- Add Benchmark Modal -->
-    <div v-cloak v-if="showBenchmark" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div v-cloak v-if="showBenchmarkModal" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
     <div class="fixed inset-0 bg-gray-800 bg-opacity-75 transition-opacity"></div>
         <div class="fixed inset-0 z-10 overflow-y-auto">
             <div @click="toggleBenchmark" class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                <addBenchmark />
+                <form @click.stop="" class="bg-black w-full border border-white rounded-lg relative transform overflow-hidden text-left shadow-xl transition-all sm:w-full sm:max-w-sm">
+                    <div class="px-4 py-6 rounded-b-lg text-white">
+                        <div class="text-center space-y-5">
+                            <div class="flex flex-col items-center">
+                                <label for="location" class="block font-bold text-white leading-6">Boulder Grade</label>
+                                <select v-model="boulder_grade" id="location" name="location" class="mt-2 block w-full rounded-md border-0 py-1.5 pl-2 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                    <option selected>v1</option>
+                                    <option>v2</option>
+                                    <option>v3</option>
+                                    <option>v4</option>
+                                    <option>v5</option>
+                                    <option>v6</option>
+                                    <option>v7</option>
+                                    <option>v8</option>
+                                    <option>v9</option>
+                                    <option>v10</option>
+                                    <option>v11</option>
+                                    <option>v12</option>
+                                    <option>v13</option>
+                                    <option>v14</option>
+                                    <option>v15</option>
+                                </select>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <label for="location" class="block font-bold text-white leading-6">Route Grade</label>
+                                <select v-model="route_grade" id="location" name="location" class="mt-2 block w-full rounded-md border-0 py-1.5 pl-2 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                    <option selected>5.7</option>
+                                    <option>5.8</option>
+                                    <option>5.9</option>
+                                    <option>5.10a</option>
+                                    <option>5.10b</option>
+                                    <option>5.10c</option>
+                                    <option>5.10d</option>
+                                    <option>5.11a</option>
+                                    <option>5.11b</option>
+                                    <option>5.11c</option>
+                                    <option>5.11d</option>
+                                    <option>5.12a</option>
+                                    <option>5.12b</option>
+                                    <option>5.12c</option>
+                                    <option>5.12d</option>
+                                    <option>5.13a</option>
+                                    <option>5.13b</option>
+                                    <option>5.13c</option>
+                                    <option>5.13d</option>
+                                    <option>5.14a</option>
+                                    <option>5.14b</option>
+                                    <option>5.14c</option>
+                                    <option>5.14d</option>
+                                    <option>5.15a</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <button @click.prevent="updateBenchmark" v-if="benchmark" class="btn w-full rounded-b-lg font-semibold tracking-wide py-2 transition">
+                        Update
+                    </button>
+                    <button @click.prevent="addBenchmark" v-else class="btn w-full rounded-b-lg font-semibold tracking-wide py-2 transition">
+                        Save
+                    </button>
+                </form>
             </div>
         </div>
     </div>
@@ -207,17 +326,18 @@
     <section class="text-white max-w-md mx-auto px-4 py-8 space-y-8">
         <div class="flex space-x-2">
             <button @click="toggleAddModal" class="btn transition rounded-lg text-black p-2 font-semibold w-1/2" type="button">Add Workout</button>
-            <button @click="toggleBenchmark" class="btn transition rounded-lg text-black p-2 font-semibold w-1/2" type="button">Add Benchmark</button>
+            <button v-if="benchmark" @click="toggleBenchmark" class="btn transition rounded-lg text-black p-2 font-semibold w-1/2" type="button">Update Benchmark</button>
+            <button v-else @click="toggleBenchmark" class="btn transition rounded-lg text-black p-2 font-semibold w-1/2" type="button">Add Benchmark</button>
         </div>
-        <div>
+        <div v-if="benchmark">
             <h2 class="text-center text-2xl tracking-wider font-semibold border-b border-white pb-2 mb-6">Your Benchmarks</h2>
             <div class="flex items-center justify-center space-x-10">
-                <div class="benchmark-gradient w-24 h-24 rounded-full flex items-center justify-center text-3xl font-semibold">v4</div>
-                <div class="benchmark-gradient w-24 h-24 rounded-full flex items-center justify-center text-3xl font-semibold">5.12a</div>
+                <div class="benchmark-gradient w-24 h-24 rounded-full flex items-center justify-center text-3xl font-semibold">{{ boulder_grade }}</div>
+                <div class="benchmark-gradient w-24 h-24 rounded-full flex items-center justify-center text-3xl font-semibold">{{ route_grade }}</div>
             </div>
         </div>
-        <div>
-            <h2 class="text-center text-2xl tracking-wider font-semibold border-b border-white pb-2 mb-6">Your Sessions</h2>
+        <div v-if="workouts">
+            <h2 class="text-center text-2xl tracking-wider font-semibold border-b border-white pb-2 mb-6">Your Workouts</h2>
             <!--components loading-->
             <button v-if="Object.keys(userWorkoutObj).length === 0" class="w-full border border-white rounded-lg" disabled>Loading...</button>
 
