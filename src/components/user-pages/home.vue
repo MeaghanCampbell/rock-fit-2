@@ -30,10 +30,14 @@
         .then(response => {
             const workoutArray = response.data;
             const newObj = {};
+
+            workoutArray.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
             for (let i = 0; i < workoutArray.length; i++) {
                 const workoutObject = workoutArray[i];
                 newObj['workoutObject' + i] = workoutObject;
             }
+
             workoutObj.value = newObj;
         })
         .catch(error => {

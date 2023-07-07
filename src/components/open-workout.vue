@@ -28,7 +28,7 @@
             </div>
         </div>
         <button class="btn w-full rounded-b-lg font-semibold tracking-wide py-2 transition">
-            Save Users Workout
+            Save {{ props.user_name }}'s Workout
         </button>
     </div>
 

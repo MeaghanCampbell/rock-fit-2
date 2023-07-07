@@ -80,7 +80,8 @@
         <!-- Bottom Nav -->
         <section class="nav-gradient fixed bottom-0 w-full">
             <div class="text-white flex justify-center max-w-md mx-auto">
-                <a v-for="tab in tabs" :id="tab.id" :key="tab.name" :href="tab.href" @click.prevent="tabSelect(tab)" v-html="tab.svg" :class="[tab.active ? 'shadow-inner light-green-bg' : '', 'py-6 px-8']"></a>            </div>
+                <a v-for="tab in tabs" :id="tab.id" :key="tab.name" :href="tab.href" @click.prevent="tabSelect(tab)" v-html="tab.svg" :class="[tab.active ? 'shadow-inner light-green-bg' : '', 'py-6 px-8']"></a>            
+            </div>
         </section>
 
         <!-- Home Dashboard -->
@@ -114,4 +115,16 @@
     </main>
     
 </template>
+
+
+
+
+
+
+
+
+
+
+
+
 
