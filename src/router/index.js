@@ -5,9 +5,30 @@ const router = createRouter({
   routes: [
     {
         path: '/',
-        name: 'Home', component: ()=>import('../views/HomeView.vue'),
+        name: 'Home', component: ()=>import('../views/Home/home.vue'),
         meta: {
-            title: 'Rockfit'
+            title: 'Rockfit - Home'
+        }
+    },
+    {
+        path: '/search',
+        name: 'Search', component: ()=>import('../views/Home/search.vue'),
+        meta: {
+            title: 'Rockfit - Search'
+        }
+    },
+    {
+        path: '/saved',
+        name: 'Saved', component: ()=>import('../views/Home/saved.vue'),
+        meta: {
+            title: 'Rockfit - Saved'
+        }
+    },
+    {
+        path: '/profile',
+        name: 'Profile', component: ()=>import('../views/Home/profile.vue'),
+        meta: {
+            title: 'Rockfit - Profile'
         }
     },
     {
