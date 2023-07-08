@@ -2,6 +2,8 @@
 
 Rock Fit v2 is the second version of am app for rock climbers to create custom training plans, track their progress and learn from others to improve performance at a niche sport. RockFit2 is a full stack application utilizing Node.js, Express.js, MongoDB, Mongoose, Vue, Vite, Tailwind, JavaScript, & CSS.
 
+![Github License](https://img.shields.io/badge/license-MIT-green)
+
 ## Usage
 
 Production link coming soon...
@@ -36,11 +38,15 @@ npm run test:unit
 
 Meaghan Campbell
 
+## License
+
+This project is licensed under the MIT License.
+
 ## Questions
 
 If there are any further questions, please feel free to reach out to me.
 
-Email: [emeaghancampbell@gmail.com](mailto:emeaghancampbell@gmail.com)
+Email: emeaghancampbell@gmail.com
 GitHub: [MeaghanCampbell](https://github.com/MeaghanCampbell/)
 
 
