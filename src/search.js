@@ -10,7 +10,7 @@ let searchUserWorkouts = function() {
         errorMessage.value = false
     }
     axios
-        .get('http://localhost:5001/api/workouts')
+        .get('/api/workouts')
         .then(response => {
         const workoutArray = response.data;
         searchedWorkoutObj.value = workoutArray.filter(workout => workout.user_name === searchedName.value);

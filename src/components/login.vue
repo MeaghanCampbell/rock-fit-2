@@ -9,7 +9,7 @@ const password = ref('')
 const handleLogin = () => {
     const formError = document.getElementById('form-error')
     formError.classList.add('hidden')
-    axios.post('http://localhost:5001/api/users/login', {
+    axios.post('/api/users/login', {
         email: email.value,
         password: password.value
     })

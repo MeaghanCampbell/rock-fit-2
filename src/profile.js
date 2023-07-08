@@ -64,7 +64,7 @@ function addBenchmark() {
         boulder_grade: boulder_grade.value,
         route_grade: route_grade.value
     }
-    axios.post('http://localhost:5001/api/benchmarks', requestBody, config)
+    axios.post('/api/benchmarks', requestBody, config)
     .then(response => {
         showBenchmarkModal.value = false
         window.location.reload()
@@ -86,7 +86,7 @@ function updateBenchmark() {
         boulder_grade: boulder_grade.value,
         route_grade: route_grade.value
     }
-    axios.put(`http://localhost:5001/api/benchmarks/${benchmarkId}`, requestBody, config) 
+    axios.put(`/api/benchmarks/${benchmarkId}`, requestBody, config) 
     .then(response => {
         showBenchmarkModal.value = false
     })
@@ -110,7 +110,7 @@ function addWorkout() {
         level: level._rawValue,
         description: description._rawValue
     }
-    axios.post('http://localhost:5001/api/workouts', requestBody, config)
+    axios.post('/api/workouts', requestBody, config)
     .then(response => {
         showAddModal.value = false
         window.location.reload()
@@ -122,7 +122,7 @@ function addWorkout() {
 
 const deleteWorkout = function() {
     const token = localStorage.getItem('token');
-    axios.delete(`http://localhost:5001/api/workouts/${workoutId}`, {
+    axios.delete(`/api/workouts/${workoutId}`, {
         headers: {
             Authorization: `Bearer ${token}`
         }
@@ -138,7 +138,7 @@ const deleteWorkout = function() {
 
 const loadData = function() {
     const token = localStorage.getItem('token');
-    axios.get('http://localhost:5001/api/users/current', {
+    axios.get('/api/users/current', {
         headers: {
             Authorization: `Bearer ${token}`
         }

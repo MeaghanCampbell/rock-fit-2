@@ -23,7 +23,7 @@
         checkLogin()
 
         axios
-        .get('http://localhost:5001/api/workouts')
+        .get('/api/workouts')
         .then(response => {
             const workoutArray = response.data;
             const newObj = {};

@@ -10,7 +10,7 @@ const password = ref('')
 const handleSignup = () => {
     const formError = document.getElementById('form-error')
     formError.classList.add('hidden')
-    axios.post('http://localhost:5001/api/users/register', {
+    axios.post('/api/users/register', {
         email: email.value,
         username: username.value,
         password: password.value
