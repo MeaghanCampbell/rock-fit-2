@@ -1,6 +1,10 @@
-# rock-fit-app
+# Description
 
-The App for Climbers to train and learn from others.
+Rock Fit v2 is the second version of am app for rock climbers to create custom training plans, track their progress and learn from others to improve performance at a niche sport. RockFit2 is a full stack application utilizing Node.js, Express.js, MongoDB, Mongoose, Vue, Vite, Tailwind, JavaScript, & CSS.
+
+## Usage
+
+Production link coming soon...
 
 ## Recommended IDE Setup
 
@@ -15,21 +19,28 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 ```sh
 npm install
 ```
-
-### Compile and Hot-Reload for Development
-
 ```sh
 npm run dev
 ```
-
-### Compile and Minify for Production
-
 ```sh
 npm run build
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+## Run Unit Tests with [Vitest](https://vitest.dev/)
 
 ```sh
 npm run test:unit
 ```
+
+## Contributors
+
+Meaghan Campbell
+
+## Questions
+
+If there are any further questions, please feel free to reach out to me.
+
+Email: [emeaghancampbell@gmail.com](mailto:emeaghancampbell@gmail.com)
+GitHub: [MeaghanCampbell](https://github.com/MeaghanCampbell/)
+
+

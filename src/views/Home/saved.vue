@@ -2,8 +2,7 @@
 
 import { onMounted } from "vue";
 import Nav from "@/components/nav.vue"
-import {checkLogin} from "@/check-login.js"
-
+import { checkLogin } from "@/check-login.js"
 
 onMounted(() => {
     checkLogin()
