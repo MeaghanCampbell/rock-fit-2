@@ -20,6 +20,12 @@ app.use("/api/workouts", require("./server/routes/workout-routes"))
 app.use("/api/benchmarks", require("./server/routes/benchmark-routes"))
 app.use(errorHandler)
 
+// The "catchall" handler: for any request that doesn't
+// match one above, send back Vue's index.html file.
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
+});
+
 app.listen(port, () => {
     console.log(`server running on port ${port}`)
 })
