@@ -11,10 +11,7 @@ const app = express()
 const port = process.env.PORT || 5001;
 
 // middleware
-app.use(cors({
-    origin: "https://murmuring-chamber-41078-cebcac015bc4.herokuapp.com",
-    credentials: true
-}));
+app.use(cors());
 
 app.use(express.json())
 // Serve static files from the 'dist' directory
@@ -24,11 +21,16 @@ app.use("/api/workouts", require("./server/routes/workout-routes"))
 app.use("/api/benchmarks", require("./server/routes/benchmark-routes"))
 app.use(errorHandler)
 
+if(process.env.NODE_ENV === 'production') {
+  app.use(express.static(__dirname + '/dist/'))
+  app.get(/.*/, (req, res) => res.sendFile(__dirname + '/dist/index.html'))
+}
+
 // The "catchall" handler: for any request that doesn't
 // match one above, send back Vue's index.html file.
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
-});
+// app.get('*', (req, res) => {
+//   res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
+// });
 
 app.listen(port, () => {
     console.log(`server running on port ${port}`)
