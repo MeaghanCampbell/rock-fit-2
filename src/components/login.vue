@@ -9,7 +9,7 @@ const password = ref('')
 const handleLogin = () => {
     const formError = document.getElementById('form-error')
     formError.classList.add('hidden')
-    axios.post('/api/users/login', {
+    axios.post('https://murmuring-chamber-41078-cebcac015bc4.herokuapp.com/api/users/login', {
         email: email.value,
         password: password.value
     })
