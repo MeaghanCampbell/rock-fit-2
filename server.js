@@ -11,7 +11,10 @@ const app = express()
 const port = process.env.PORT || 5001;
 
 // middleware
-app.use(cors())
+app.use(cors({
+    origin: 'https://murmuring-chamber-41078-cebcac015bc4.herokuapp.com',
+    credentials: true
+}))
 app.use(express.json())
 // Serve static files from the 'dist' directory
 app.use(express.static(path.join(__dirname, 'dist')));
