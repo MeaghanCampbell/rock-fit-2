@@ -7,10 +7,16 @@ const email = ref('')
 const username = ref('')
 const password = ref('')
 
+const apiBaseURL = process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:5001/api';
+
+const api = axios.create({
+    baseURL: apiBaseURL,
+});
+
 const handleSignup = () => {
     const formError = document.getElementById('form-error')
     formError.classList.add('hidden')
-    axios.post('/api/users/register', {
+    api.post('/users/register', {
         email: email.value,
         username: username.value,
         password: password.value

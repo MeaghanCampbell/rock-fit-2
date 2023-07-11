@@ -46,14 +46,14 @@ const registerUser = asyncHandler(async (req, res) => {
 // POST /api/users/login
 const loginUser = asyncHandler(async (req, res) => {
 
-    const { email, password } = req.body
+    const { username, password } = req.body
 
-    if(!email || !password) {
+    if(!username || !password) {
         res.status(400);
         throw new Error("All fields are mandatory")
     }
 
-    const user = await User.findOne({ email })
+    const user = await User.findOne({ username })
 
     // compare password with hashed password
     if(user && (await bcrypt.compare(password, user.password))) {
@@ -70,7 +70,7 @@ const loginUser = asyncHandler(async (req, res) => {
         res.status(200).json({ accessToken })
     } else {
         res.status(401)
-        throw new Error("email or password are not valid")
+        throw new Error("username or password are not valid")
     }
 
 })

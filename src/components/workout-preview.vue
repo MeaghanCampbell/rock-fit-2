@@ -15,7 +15,7 @@
     <div class="px-4 py-6 rounded-b-lg workout-preview transition">
         <div class="flex justify-center space-x-5 font-semibold">
             <p>{{ props.category }}</p> <span>|</span>
-            <p class="font-light italic">{{ props.time }} minutes</p> <span>|</span>
+            <p class="font-light italic">{{ props.time }} min</p> <span>|</span>
             <p>{{ props.level }}</p>
         </div>
     </div>

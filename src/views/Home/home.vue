@@ -18,12 +18,18 @@
 
     let workoutObj = ref({});
 
+    const apiBaseURL = process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:5001/api';
+
+    const api = axios.create({
+        baseURL: apiBaseURL,
+    });
+
     onMounted(() => {
 
         checkLogin()
 
-        axios
-        .get('/api/workouts')
+        api
+        .get('/workouts')
         .then(response => {
             const workoutArray = response.data;
             const newObj = {};

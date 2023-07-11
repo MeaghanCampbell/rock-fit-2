@@ -21,6 +21,12 @@ let level = ref('')
 let description = ref('')
 let workoutId = ''
 
+const apiBaseURL = process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:5001/api';
+
+const api = axios.create({
+    baseURL: apiBaseURL,
+});
+
 function openModal(workout) {
     workoutId = workout._id
     date.value = workout.date
@@ -64,7 +70,7 @@ function addBenchmark() {
         boulder_grade: boulder_grade.value,
         route_grade: route_grade.value
     }
-    axios.post('/api/benchmarks', requestBody, config)
+    api.post('/benchmarks', requestBody, config)
     .then(response => {
         showBenchmarkModal.value = false
         window.location.reload()
@@ -86,7 +92,7 @@ function updateBenchmark() {
         boulder_grade: boulder_grade.value,
         route_grade: route_grade.value
     }
-    axios.put(`/api/benchmarks/${benchmarkId}`, requestBody, config) 
+    api.put(`/benchmarks/${benchmarkId}`, requestBody, config) 
     .then(response => {
         showBenchmarkModal.value = false
     })
@@ -110,7 +116,7 @@ function addWorkout() {
         level: level._rawValue,
         description: description._rawValue
     }
-    axios.post('/api/workouts', requestBody, config)
+    api.post('/workouts', requestBody, config)
     .then(response => {
         showAddModal.value = false
         window.location.reload()
@@ -122,7 +128,7 @@ function addWorkout() {
 
 const deleteWorkout = function() {
     const token = localStorage.getItem('token');
-    axios.delete(`/api/workouts/${workoutId}`, {
+    api.delete(`/workouts/${workoutId}`, {
         headers: {
             Authorization: `Bearer ${token}`
         }
@@ -138,7 +144,7 @@ const deleteWorkout = function() {
 
 const loadData = function() {
     const token = localStorage.getItem('token');
-    axios.get('/api/users/current', {
+    api.get('/users/current', {
         headers: {
             Authorization: `Bearer ${token}`
         }
