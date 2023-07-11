@@ -6,7 +6,8 @@ Rock Fit v2 is the second version of am app for rock climbers to create custom t
 
 ## Usage
 
-Production link coming soon...
+You can view the production level app [here](https://rockfitnew-e0394048aa0c.herokuapp.com/).
+Start by registering and logging in with your registared user.
 
 ## Recommended IDE Setup
 
