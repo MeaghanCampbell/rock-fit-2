@@ -15,13 +15,17 @@ let searchUserWorkouts = function() {
     if(errorMessage) {
         errorMessage.value = false
     }
+    const lowercaseSearchQuery = searchedName.value.toLowerCase();
     api
-        .get('/workouts')
-        .then(response => {
+    .get('/workouts')
+    .then(response => {
         const workoutArray = response.data;
-        searchedWorkoutObj.value = workoutArray.filter(workout => workout.user_name === searchedName.value);
+        searchedWorkoutObj.value = workoutArray.filter(workout => {
+            const lowercaseUsername = workout.user_name.toLowerCase();
+            return lowercaseUsername === lowercaseSearchQuery;
+        });
         if (searchedWorkoutObj.value.length === 0) {
-            errorMessage.value = true
+            errorMessage.value = true;
         }
     })
     .catch(error => {

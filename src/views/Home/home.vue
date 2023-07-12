@@ -59,6 +59,7 @@
         <Nav />
 
         <!-- Modal -->
+        <Transition name="modal">
         <div v-cloak v-if="showModal" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
         <div class="fixed inset-0 bg-gray-800 bg-opacity-75 transition-opacity"></div>
             <div class="fixed inset-0 z-10 overflow-y-auto">
@@ -74,6 +75,7 @@
                 </div>
             </div>
         </div>
+        </Transition>
 
         <!-- All Workouts -->
         <section v-cloak class="text-white max-w-md mx-auto px-5 py-8">

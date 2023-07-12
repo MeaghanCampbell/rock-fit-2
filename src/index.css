@@ -54,5 +54,13 @@
     background-color: #4AB859;
 }
 
+/* Vue Transitions */
+.modal-enter-active, .modal-leave-active {
+    transition: opacity .3s ease;
+}
+.modal-enter-from, .modal-leave-to {
+    opacity: 0;
+}
+
 /* cloak */ 
 [v-cloak] { display: none; }

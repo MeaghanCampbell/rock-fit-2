@@ -33,21 +33,23 @@
         <Nav />
 
         <!-- Modal -->
-        <div v-cloak v-if="showModal" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="fixed inset-0 bg-gray-800 bg-opacity-75 transition-opacity"></div>
-            <div class="fixed inset-0 z-10 overflow-y-auto">
-                <div @click="showModal = false" class="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0">
-                    <openWorkout
-                        :user_name="username"
-                        :date="date"
-                        :category="category"
-                        :time="time"
-                        :level="level"
-                        :description="description"
-                    />
+        <Transition name="modal">
+            <div v-cloak v-if="showModal" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+            <div class="fixed inset-0 bg-gray-800 bg-opacity-75 transition-opacity"></div>
+                <div class="fixed inset-0 z-10 overflow-y-auto">
+                    <div @click="showModal = false" class="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0">
+                        <openWorkout
+                            :user_name="username"
+                            :date="date"
+                            :category="category"
+                            :time="time"
+                            :level="level"
+                            :description="description"
+                        />
+                    </div>
                 </div>
             </div>
-        </div>
+        </Transition>
 
         <!-- Searched Workouts -->
         <section class="text-white max-w-md mx-auto px-4 py-8">

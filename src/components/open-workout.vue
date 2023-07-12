@@ -1,6 +1,18 @@
 <script setup>
 
+    import { ref } from 'vue'
+
     const props = defineProps(['user_name', 'date', 'category', 'time', 'level', 'description', 'id'])
+
+    let errorMsg = ref(false)
+
+    let saveWorkout = function() {
+        errorMsg.value = true
+        setTimeout(function() {
+            errorMsg.value = false
+        }, 5000);
+    }
+
 
 </script>
 
@@ -26,8 +38,11 @@
                     <span>{{ props.description }}</span>
                 </p>
             </div>
+            <Transition name="modal">
+                <p v-if="errorMsg" class="green text-sm mt-6 text-center"><strong>Save functionality is still in production.</strong> <br /><em>Check back later for live feature.</em></p>
+            </Transition>
         </div>
-        <button class="btn w-full rounded-b-lg font-semibold tracking-wide py-2 transition">
+        <button @click.prevent="saveWorkout" class="btn w-full rounded-b-lg font-semibold tracking-wide py-2 transition">
             Save {{ props.user_name }}'s Workout
         </button>
     </div>
