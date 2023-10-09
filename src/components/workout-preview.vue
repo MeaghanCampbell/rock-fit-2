@@ -13,9 +13,9 @@
         </div>
     </div>
     <div class="px-4 py-6 rounded-b-lg workout-preview transition">
-        <div class="flex justify-center space-x-5 font-semibold">
-            <p>{{ props.category }}</p> <span>|</span>
-            <p class="font-light italic">{{ props.time }} min</p> <span>|</span>
+        <div class="flex flex-col sm:flex-row justify-center sm:space-x-5 font-semibold">
+            <p>{{ props.category }}</p> <span class="hidden sm:block">|</span>
+            <p class="font-light italic">{{ props.time }} min</p> <span class="hidden sm:block">|</span>
             <p>{{ props.level }}</p>
         </div>
     </div>
